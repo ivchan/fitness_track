@@ -5,9 +5,10 @@ spring:
   application:
     name: ftrack
   mongodb:
-    host: localhost
-    port: 27017
-    database: ftrackdb
+    uri: mongodb+srv://ftrack_owner:3ZmhzZiPuIAnFEUl@0.af9yoov.mongodb.net/ftrackdb?appName=Cluster0
+  #host: localhost
+    #port: 27017
+    #database: ftrackdb
 
 logging:
   level:
