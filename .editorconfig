@@ -1,0 +1,19 @@
+# top-most EditorConfig file
+root = true
+
+[*]
+# General settings for all files
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{java,xml,properties}]
+# Settings for Java, XML, and properties files
+indent_style = space
+indent_size = 2
+
+[*.{yml,yaml}]
+# Settings for YAML files (common in Spring Boot)
+indent_style = space
+indent_size = 2

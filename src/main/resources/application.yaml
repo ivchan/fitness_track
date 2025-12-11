@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ftrack
+  mongodb:
+    host: localhost
+    port: 27017
+    database: ftrackdb
+
+logging:
+  level:
+    org.springframework.data.mongodb: INFO
+    org.mongodb.driver: INFO
