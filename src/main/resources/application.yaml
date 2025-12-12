@@ -4,13 +4,13 @@ server:
 spring:
   application:
     name: ftrack
+  config:
+    import: 
+      - optional:file:/opt/app/ftrack/env.yaml
   mongodb:
-    uri: mongodb+srv://ftrack_owner:3ZmhzZiPuIAnFEUl@0.af9yoov.mongodb.net/ftrackdb?appName=Cluster0
-  #host: localhost
-    #port: 27017
-    #database: ftrackdb
+    uri: mongodb://localhost:27017/ftrackdb
 
 logging:
   level:
-    org.springframework.data.mongodb: INFO
-    org.mongodb.driver: INFO
+    org.springframework.data.mongodb: DEBUG
+    org.mongodb.driver: DEBUG
