@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '4.0.0'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'jacoco'
 }
 
 group = 'homelab'
@@ -38,7 +39,7 @@ dependencies {
   testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
   def mockitoCore = configurations.testRuntimeClasspath.resolvedConfiguration.resolvedArtifacts.find {
     it.moduleVersion.id.name == 'mockito-core'
@@ -46,4 +47,14 @@ tasks.named('test') {
   if (mockitoCore) {
     jvmArgs "-javaagent:${mockitoCore.absolutePath}"
   }
+  finalizedBy jacocoTestReport
 }
+
+jacocoTestReport {
+  reports {
+    xml.required = false
+    html.required = true
+    csv.required = true
+  }
+}
+

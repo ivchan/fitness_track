@@ -2,6 +2,7 @@ package homelab.ftrack.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User addUser(User user) {
+    if (user.getId().isEmpty()) {
+      user.setId(UUID.randomUUID().toString());
+    }
     User saved = this.userRepository.insert(user);
     return saved;
   }
