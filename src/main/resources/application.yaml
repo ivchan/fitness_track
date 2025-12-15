@@ -1,7 +1,11 @@
 server:
+  servlet:
+    context-path: ""
   port: 8080
 
 spring:
+  profiles:
+    active: test
   application:
     name: ftrack
   config:

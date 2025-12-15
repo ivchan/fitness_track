@@ -12,6 +12,16 @@ public class User extends BaseModel {
   private String emailAddress;
   private String passwordHash;
 
+  public User() {
+  }
+
+  public User(String id, String userCode, String userName) {
+    super();
+    this.id = id;
+    this.userCode = userCode;
+    this.userName = userName;
+  }
+
   public String getId() {
     return id;
   }

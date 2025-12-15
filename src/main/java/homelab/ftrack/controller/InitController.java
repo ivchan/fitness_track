@@ -22,18 +22,12 @@ public class InitController {
   public void Initial() {
     this.userService.emptyCollection();
 
-    User admin = new User();
-    admin.setId("115b24c6-e9c2-4d90-a3c9-cfa2be97accb");
-    admin.setUserName("SysAdmin");
-    admin.setUserCode("sysadmin");
+    User admin = new User("115b24c6-e9c2-4d90-a3c9-cfa2be97accb", "sysadmin", "System Admin.");
     admin.setCreatedAt(LocalDateTime.now());
     admin.setCreatedBy(admin.getUserCode());
     this.userService.addUser(admin);
 
-    User ihmchan = new User();
-    ihmchan.setId("a4a67704-ea8a-4948-991a-00bc068160b3");
-    ihmchan.setUserName("Ivan Chan");
-    ihmchan.setUserCode("ihmchan");
+    User ihmchan = new User("a4a67704-ea8a-4948-991a-00bc068160b3", "ihmchan", "Ivan Chan");
     ihmchan.setCreatedAt(LocalDateTime.now());
     ihmchan.setCreatedBy(ihmchan.getUserCode());
     this.userService.addUser(ihmchan);
