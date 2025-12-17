@@ -38,3 +38,4 @@ out/
 
 ### customization ###
 gradle.properties
+/logs/

@@ -16,6 +16,4 @@ public interface UserService {
   void removeUser(String userId);
 
   boolean exists(String userId);
-
-  void emptyCollection();
 }

@@ -16,5 +16,17 @@ spring:
 
 logging:
   level:
-    org.springframework.data.mongodb: DEBUG
-    org.mongodb.driver: DEBUG
+    root: INFO
+#    org.springframework.data.mongodb: DEBUG
+#    org.mongodb.driver: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/fitness_track.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/fitness_track.%d{yyyy-MM-dd}.%i.log  # Pattern for archived files (%d = date, %i = index for same-day rolls)
+      max-file-size: 100MB  # Roll over when current file reaches this size (default: 10MB)
+      total-size-cap: 10GB   # Cap total size of all archived logs (deletes oldest when exceeded)
+      max-history: 30        # Keep archives for this many days (deletes older ones)
+      clean-history-on-start: true
