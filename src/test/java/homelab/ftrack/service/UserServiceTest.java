@@ -9,7 +9,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,47 +35,28 @@ public class UserServiceTest {
 
   @BeforeEach
   void setUp() {
-    testUser = new User();
-    testUser.setId("7fcc6501-e116-4118-a92e-559e5bfc32da");
-    testUser.setUserName("Tester Account");
-    testUser.setUserCode("tester");
-    testUser.setEmailAddress("testac@email.com");
+    testUser = new User("7fcc6501-e116-4118-a92e-559e5bfc32da", "tester", "Tester Account");
 
-    listTestUser = new ArrayList<User>();
-    User testUser1 = new User();
-    testUser1.setId("009e25e4-7a43-4eed-b994-db7e1ed4cf25");
-    testUser1.setUserName("Tester 1");
-    testUser1.setUserCode("tester1");
-    testUser1.setEmailAddress("testac1@email.com");
+    listTestUser = List.of(new User("009e25e4-7a43-4eed-b994-db7e1ed4cf25", "tester1", "Tester 1"),
+        new User("a7fc5237-3378-4fb0-8996-5ba4e2590c64", "tester2", "Tester 2"),
+        new User("ac6eb5ab-648b-48da-b0a1-881a04b15b1e", "tester3", "Tester 3"));
 
-    User testUser2 = new User();
-    testUser2.setId("a7fc5237-3378-4fb0-8996-5ba4e2590c64");
-    testUser2.setUserName("Tester 2");
-    testUser2.setUserCode("tester2");
-    testUser2.setEmailAddress("testac2@email.com");
-
-    User testUser3 = new User();
-    testUser3.setId("ac6eb5ab-648b-48da-b0a1-881a04b15b1e");
-    testUser3.setUserName("Tester 3");
-    testUser3.setUserCode("tester3");
-    testUser3.setEmailAddress("testac3@email.com");
-
-    listTestUser.add(testUser1);
-    listTestUser.add(testUser2);
-    listTestUser.add(testUser3);
+    // listTestUser.add(testUser1);
+    // listTestUser.add(testUser2);
+    // listTestUser.add(testUser3);
   }
 
   @Test
   void getUser_WhenExist_ShouldReturnUser() {
-    String uid = "7fcc6501-e116-4118-a92e-559e5bfc32da";
+    String uid = testUser.getId();
     when(userRepository.findById(uid)).thenReturn(Optional.of(testUser));
     User result = userService.getUser(uid);
 
     // Assert
     assertNotNull(result);
-    assertEquals("Tester Account", result.getUserName());
-    assertEquals("tester", result.getUserCode());
-    assertEquals("testac@email.com", result.getEmailAddress());
+    assertEquals(testUser.getUserName(), result.getUserName());
+    assertEquals(testUser.getUserCode(), result.getUserCode());
+    assertEquals(testUser.getId(), result.getId());
   }
 
   @Test
