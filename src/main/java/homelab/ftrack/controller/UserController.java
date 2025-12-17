@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import homelab.ftrack.model.User;
@@ -27,29 +26,29 @@ public class UserController {
   @PostMapping
   public ResponseEntity<?> create(@RequestBody User user) {
     if (userService.exists(user.getId())) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
     User savedUser = this.userService.addUser(user);
-    return ResponseEntity.ok(savedUser);
+    return new ResponseEntity<User>(savedUser, HttpStatus.CREATED);
   }
 
   @PutMapping
   public ResponseEntity<?> update(@RequestBody User user) {
-    if (userService.exists(user.getId())) {
+    if (!userService.exists(user.getId())) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     User savedUser = this.userService.updateUser(user);
     return ResponseEntity.ok(savedUser);
   }
 
-  @DeleteMapping
-  public ResponseEntity<?> delete(@RequestParam String id) {
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> delete(@PathVariable("id") String id) {
     this.userService.removeUser(id);
     return ResponseEntity.ok().build();
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> get(@PathVariable String id) {
+  public ResponseEntity<?> get(@PathVariable("id") String id) {
     User user = this.userService.getUser(id);
     if (user == null) {
       return ResponseEntity.notFound().build();
