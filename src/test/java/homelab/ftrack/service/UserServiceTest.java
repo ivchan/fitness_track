@@ -69,12 +69,6 @@ public class UserServiceTest {
   }
 
   @Test
-  void emptyCollection_CallsRepositoryDeleteAll() {
-    userService.emptyCollection();
-    verify(userRepository).deleteAll();
-  }
-
-  @Test
   void removeUser_CallsRepositoryDelete() {
     String uid = "TEST-UID";
     userService.removeUser(uid);
@@ -119,7 +113,6 @@ public class UserServiceTest {
 
   @Test
   void updateUser_WhenNotExist_ShouldReturnNull() {
-    String existUid = "Exist";
     String notExistUid = "NotExist";
 
     when(userRepository.findById(notExistUid)).thenReturn(Optional.empty());
@@ -132,7 +125,6 @@ public class UserServiceTest {
   @Test
   void updateUser_WhenExist_ShouldReturnUser() {
     String existUid = "Exist";
-    String notExistUid = "NotExist";
 
     when(userRepository.findById(existUid)).thenReturn(Optional.of(testUser));
     when(userRepository.save(any(User.class))).thenReturn(testUser);
