@@ -39,3 +39,4 @@ out/
 ### customization ###
 gradle.properties
 /logs/
+.DS_Store
