@@ -8,6 +8,7 @@ plugins {
 group = 'homelab'
 version = '0.0.1-SNAPSHOT'
 description = 'Fitness Tracker'
+compileJava.options.encoding = 'UTF-8'
 
 java {
 	toolchain {
