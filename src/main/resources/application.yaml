@@ -13,6 +13,16 @@ spring:
       - optional:file:/opt/app/ftrack/env.yaml
   mongodb:
     uri: mongodb://localhost:27017/ftrackdb
+  data:
+    redis:
+      host: redis-16559.crce178.ap-east-1-1.ec2.cloud.redislabs.com
+      port: 16559
+      password: 6USANIGXDJfVesc0eMG7FFRl8M8hQ5Co
+      ssl: 
+        enabled: true
+      repositories:
+        enabled: false
+      #url: rediss://default:6USANIGXDJfVesc0eMG7FFRl8M8hQ5Co@redis-16559.crce178.ap-east-1-1.ec2.cloud.redislabs.com:16559
 
 logging:
   level:
