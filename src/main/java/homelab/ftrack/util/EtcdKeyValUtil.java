@@ -38,4 +38,11 @@ public class EtcdKeyValUtil implements KeyValUtil {
     kvClient.put(keyBS, valueBS).get();
   }
 
+  @Override
+  public void removeValue(String key) throws Exception {
+    KV kvClient = client.getKVClient();
+    ByteSequence keyBS = ByteSequence.from(key, StandardCharsets.UTF_8);
+    kvClient.delete(keyBS);
+  }
+
 }

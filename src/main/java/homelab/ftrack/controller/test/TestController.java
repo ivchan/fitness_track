@@ -2,6 +2,7 @@ package homelab.ftrack.controller.test;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,10 +17,10 @@ public class TestController {
     this.kvUtil = kvUtil;
   }
 
-  @GetMapping("/putkv")
-  public ResponseEntity<?> putkv() {
+  @GetMapping("/putkv/{msg}")
+  public ResponseEntity<?> putkv(@PathVariable("msg") String msg) {
     try {
-      kvUtil.setValue("test01", "this is a success case");
+      kvUtil.setValue("test01", msg.toUpperCase());
       return ResponseEntity.ok("success");
     } catch (Exception e) {
       e.printStackTrace();
@@ -31,7 +32,18 @@ public class TestController {
   public ResponseEntity<?> getkv() {
     try {
       String retValue = kvUtil.getValue("test01");
-      return ResponseEntity.ok(retValue);
+      return ResponseEntity.ok(retValue.toLowerCase());
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.ok("fail");
+    }
+  }
+
+  @GetMapping("/removekv")
+  public ResponseEntity<?> clearkv() {
+    try {
+      kvUtil.removeValue("test01");
+      return ResponseEntity.ok("removed");
     } catch (Exception e) {
       e.printStackTrace();
       return ResponseEntity.ok("fail");
