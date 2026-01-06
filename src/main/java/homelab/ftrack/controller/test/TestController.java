@@ -5,20 +5,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import homelab.ftrack.util.RedisUtil;
+import homelab.ftrack.util.KeyValUtil;
 
 @RestController
 @RequestMapping("/test")
 public class TestController {
-  private final RedisUtil redisUtil;
+  private final KeyValUtil kvUtil;
 
-  public TestController(RedisUtil redisUtil) {
-    this.redisUtil = redisUtil;
+  public TestController(KeyValUtil kvUtil) {
+    this.kvUtil = kvUtil;
   }
 
-  @GetMapping("/submitredis")
+  @GetMapping("/putkv")
+  public ResponseEntity<?> putkv() {
+    try {
+      kvUtil.setValue("test01", "this is a success case");
+      return ResponseEntity.ok("success");
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.ok("fail");
+    }
+  }
+
+  @GetMapping("/getkv")
+  public ResponseEntity<?> getkv() {
+    try {
+      String retValue = kvUtil.getValue("test01");
+      return ResponseEntity.ok(retValue);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.ok("fail");
+    }
+  }
+
+  @GetMapping("/submitimage")
   public ResponseEntity<?> get() {
-    redisUtil.setRedisValue("test01", "Hello World");
     return ResponseEntity.ok("success");
   }
 }
