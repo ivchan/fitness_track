@@ -1,6 +1,8 @@
 package homelab.ftrack.model;
 
-//@Document(collection = "ft_daily_exercise")
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "ft_daily_exercise")
 public class DailyExercise extends BaseModel {
   private String exerciseId;
   private String exerciseRemarks;

@@ -2,7 +2,9 @@ package homelab.ftrack.model;
 
 import java.time.LocalDate;
 
-//@Document(collection = "ft_daily_summary")
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "ft_daily_summary")
 public class DailySummary extends BaseModel {
   private String id;
   private LocalDate recordDate;

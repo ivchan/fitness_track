@@ -2,11 +2,14 @@ package homelab.ftrack.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import homelab.ftrack.dto.DailySummaryCreateDto;
 import homelab.ftrack.dto.DailySummarySearchDto;
 import homelab.ftrack.model.DailyMeal;
 import homelab.ftrack.model.DailySummary;
 
+@Service
 public class DailySummaryServiceImpl implements DailySummaryService {
 
   @Override

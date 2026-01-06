@@ -1,8 +1,9 @@
 package homelab.ftrack.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-//@Document(collection = "ft_exercise")
+@Document(collection = "ft_exercise")
 public class Exercise extends BaseModel {
   @Id
   private String id;
