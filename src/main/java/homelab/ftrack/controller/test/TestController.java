@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import homelab.ftrack.util.KeyValUtil;
+import homelab.ftrack.util.KeyValueUtility;
 
 @RestController
 @RequestMapping("/test")
 public class TestController {
-  private final KeyValUtil kvUtil;
+  private final KeyValueUtility kvUtil;
 
-  public TestController(KeyValUtil kvUtil) {
+  public TestController(KeyValueUtility kvUtil) {
     this.kvUtil = kvUtil;
   }
 

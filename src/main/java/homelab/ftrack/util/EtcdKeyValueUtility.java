@@ -9,12 +9,13 @@ import io.etcd.jetcd.ByteSequence;
 import io.etcd.jetcd.Client;
 import io.etcd.jetcd.KV;
 import io.etcd.jetcd.kv.GetResponse;
+import io.etcd.jetcd.kv.PutResponse;
 
 @Service
-public class EtcdKeyValUtil implements KeyValUtil {
+public class EtcdKeyValueUtility implements KeyValueUtility {
   private final Client client;
 
-  public EtcdKeyValUtil(Client client) {
+  public EtcdKeyValueUtility(Client client) {
     this.client = client;
   }
 
@@ -43,6 +44,28 @@ public class EtcdKeyValUtil implements KeyValUtil {
     KV kvClient = client.getKVClient();
     ByteSequence keyBS = ByteSequence.from(key, StandardCharsets.UTF_8);
     kvClient.delete(keyBS);
+  }
+
+  @Override
+  public byte[] getImage(String key) throws Exception {
+    KV kvClient = client.getKVClient();
+    ByteSequence keyBS = ByteSequence.from(key, StandardCharsets.UTF_8);
+
+    CompletableFuture<GetResponse> getFuture = kvClient.get(keyBS);
+    GetResponse response = getFuture.get();
+    if (response.getKvs().isEmpty()) {
+      return null;
+    }
+    return response.getKvs().get(0).getValue().getBytes();
+  }
+
+  @Override
+  public void setImage(String key, byte[] imageBytes) throws Exception {
+    KV kvClient = client.getKVClient();
+    ByteSequence keyBS = ByteSequence.from(key, StandardCharsets.UTF_8);
+    ByteSequence valueBS = ByteSequence.from(imageBytes);
+    CompletableFuture<PutResponse> putFuture = kvClient.put(keyBS, valueBS);
+    putFuture.get();
   }
 
 }
