@@ -1,9 +1,10 @@
 package homelab.ftrack.controller;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import java.util.Base64;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +13,7 @@ import homelab.ftrack.service.DailySummaryService;
 import homelab.ftrack.util.KeyValueUtility;
 
 @RestController
+@RequestMapping("/activity")
 public class ActivityController {
   private final DailySummaryService dailySummaryService;
   private final KeyValueUtility keyValueUtility;
@@ -21,27 +23,16 @@ public class ActivityController {
     this.keyValueUtility = keyValUtil;
   }
 
+  @PostMapping("/image")
   public ResponseEntity<?> uploadMealImageKv(@RequestParam("file") MultipartFile file,
       @RequestParam("summaryKey") String summaryKey) throws Exception {
 
     byte[] imageBytes = file.getBytes();
-    keyValueUtility.setImage(summaryKey, imageBytes);
+    String imageBase64 = Base64.getEncoder().encodeToString(imageBytes);
+    String imgKey = "MEALIMAGE_d51b46b5-5693-4f4b-b92c-45da7887173a";
+    keyValueUtility.setValue(imgKey, imageBase64);
 
     return ResponseEntity.ok("succes");
-  }
-
-  public ResponseEntity<?> getMealImageKv(String key) throws Exception {
-    byte[] imageBytes = keyValueUtility.getImage(key);
-
-    if (imageBytes == null) {
-      return ResponseEntity.notFound().build();
-    }
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.IMAGE_JPEG);
-    headers.setContentLength(imageBytes.length);
-
-    return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
   }
 
 }
